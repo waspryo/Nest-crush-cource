@@ -3,7 +3,6 @@ import { StudentsModule } from '../student/student.module';
 import { StudentTeacherController } from './student.controller';
 import { TeacherController } from './teacher.controller';
 import { TeacherService } from './teacher.service';
-import { TeacherService } from './teacher.service';
 
 @Module({
   imports: [StudentsModule],

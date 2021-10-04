@@ -14,7 +14,6 @@ import {
   UpdateStudentDto,
 } from './dto/student.dto';
 import { StudentService } from './student.service';
-// import { StudentService } from './student.service';
 
 @Controller('students')
 export class StudentController {
