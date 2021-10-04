@@ -1,17 +1,26 @@
-import { Controller, Get, Param, Put } from '@nestjs/common';
+import { Controller, Get, Put, Param, ParseUUIDPipe } from '@nestjs/common';
+import {
+  FindStudentsResponseDto,
+  StudentResponseDto,
+} from '../student/dto/student.dto';
+import { StudentService } from '../student/student.service';
 
 @Controller('teachers/:teacherId/students')
 export class StudentTeacherController {
-  @Get('')
-  getStudents(@Param('teacherId') teacherId: string) {
-    return `Get All Students That Belong to A Teacher With An Id of ${teacherId}`;
+  constructor(private readonly studentService: StudentService) {}
+
+  @Get()
+  getStudents(
+    @Param('teacherId', new ParseUUIDPipe()) teacherId: string,
+  ): FindStudentsResponseDto[] {
+    return this.studentService.getStudentsByTeacherId(teacherId);
   }
 
   @Put('/:studentId')
   updateStudentTeacher(
-    @Param('teacherId') teacherId: string,
-    @Param('studentId') studentId: string,
-  ) {
-    return `Update Student With Id of ${studentId} To Teacher With Id of ${teacherId}`;
+    @Param('teacherId', new ParseUUIDPipe()) teacherId: string,
+    @Param('studentId', new ParseUUIDPipe()) studentId: string,
+  ): StudentResponseDto {
+    return this.studentService.updateStudentTeacher(teacherId, studentId);
   }
 }
